@@ -10,7 +10,7 @@ f = open('dataspitchs.txt', 'r', encoding='UTF-8')
 spitchs = f.read().split('\n')
 f.close()
 #Запуск бота
-bot = telebot.TeleBot('6814056024:AAFSWZWrEl3qf4EStFrG_kegMXD5P5VS5J0')
+bot = telebot.TeleBot('you code token')
 
 @bot.message_handler(commands=["start"])
 def start(m, res=False):
