@@ -1,0 +1,36 @@
+import telebot
+import random
+from telebot import types
+#Задания
+f = open('datatasks.txt', 'r', encoding='UTF-8')
+tasks = f.read().split('\n')
+f.close()
+#Спичи
+f = open('dataspitchs.txt', 'r', encoding='UTF-8')
+spitchs = f.read().split('\n')
+f.close()
+#Запуск бота
+bot = telebot.TeleBot('6814056024:AAFSWZWrEl3qf4EStFrG_kegMXD5P5VS5J0')
+
+@bot.message_handler(commands=["start"])
+def start(m, res=False):
+
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        item1 = types.KeyboardButton("Получить позитивное задание на сегодня")
+        item2 = types.KeyboardButton("Получить мотивационный заряд на сегодня")
+        markup.add(item1)
+        markup.add(item2)
+        bot.send_message(m.chat.id, 'Выбирай >> \nТы хочешь получить позитивное задание на сегодня? \n\nИли получить мотивационный заряд на день? \n\nПозволь себе всё сразу!',  reply_markup=markup)
+
+@bot.message_handler(content_types=["text"])
+def handle_text(message):
+
+    if message.text.strip() == 'Получить позитивное задание на сегодня' :
+            answer = random.choice(tasks)
+
+    elif message.text.strip() == 'Получить мотивационный заряд на сегодня':
+            answer = random.choice(spitchs)
+
+    bot.send_message(message.chat.id, answer)
+
+bot.polling(none_stop=True, interval=0)
