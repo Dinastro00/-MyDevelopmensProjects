@@ -1,0 +1,14 @@
+from openpyxl import Workbook
+
+with open('DatainExcel.txt', 'r', encoding='utf-8') as file:
+    lines = file.readlines()
+
+workbook = Workbook()
+sheet = workbook.active
+
+for row, line in enumerate(lines, start=1):
+    columns = line.split('\t')
+    for col, value in enumerate(columns, start=1):
+        sheet.cell(row=row, column=col, value=value)
+
+workbook.save('MyDataTable.xlsx')
